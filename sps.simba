@@ -390,11 +390,13 @@ begin
   while (not Result) and (GetSystemTime < T) do
   begin
     RunEnergy(20);
-
-    P := SPS_GetMyPos;
+    if p<> SPS_GetMyPos then
+    	P := SPS_GetMyPos;
+    else
+      Exit;
     for I := H downto 0 do
     begin
-      MM.X := MMCX + Path[I].X - P.X;
+      MM.X := MMCX + Path[I].X - P.X; //determines the point to click by adding the coordinate to the center and then subtracting the current pos
       MM.Y := MMCY + Path[I].Y - P.Y;
 
       D := Distance(MM.X, MM.Y, MMCX, MMCY);
